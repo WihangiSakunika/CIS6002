@@ -66,5 +66,31 @@ def app():
         st.text('Email id: ' + st.session_state.useremail)
         st.button('Sign out', on_click=t)
 
-    def ap():
+    # Define the show_user_statistics function at the same indentation level
+    def show_user_statistics():
+        # Assuming you have a Firestore collection called 'UserStatistics'
+        db = firestore.client()
+        user_id = st.session_state.username  # Get the user's unique identifier (username)
+
+        try:
+            # Ensure there is no trailing "/" in the document path
+            user_doc_ref = db.collection('UserStatistics').document(user_id)
+
+            # Query Firestore to retrieve user statistics
+            stats_doc = user_doc_ref.get()
+
+            if stats_doc.exists:
+                statistics = stats_doc.to_dict()
+                st.subheader('User Statistics')
+                st.write(f"Number of Predictions: {statistics.get('predictions_count', 0)}")
+                # Add more statistics as needed
+            else:
+                st.warning('User statistics not available.')
+
+        except Exception as e:
+            st.error(f"Error retrieving user statistics: {str(e)}")
+        # Call the show_user_statistics function within the app function
+        show_user_statistics()
+
+def ap():
         st.write('Posts')

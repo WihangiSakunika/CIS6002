@@ -1,7 +1,6 @@
 import streamlit as st
 from firebase_admin import firestore
 
-
 def app():
     db = firestore.client()
 
@@ -25,8 +24,7 @@ def app():
         for c in range(len(content) - 1, -1, -1):
             st.text_area(label='', value=content[c])
             st.button('Delete Post', on_click=delete_post, args=([c]), key=c)
-
-
     except:
         if st.session_state.username == '':
             st.text('Please Login first')
+
