@@ -2,7 +2,7 @@ import streamlit as st
 
 from streamlit_option_menu import option_menu
 
-import home ,about ,trending,test
+import home,about,trending,test
 import you
 import post
 import prediction
@@ -31,7 +31,7 @@ class MultiApp:
         with st.sidebar:
             app = option_menu(
                 menu_title='DiaPredict',
-                options=['Home', 'Account', 'Trending', 'Your Posts', 'about', 'Through Time','prediction','History','Task'],
+                options=['Home','Account','Prediction','Your Posts','Through Time','History','Task','Trending','About'],
                 icons=['house-fill', 'person-circle', 'trophy-fill', 'chat-fill', 'info-circle-fill'],
                 menu_icon='chat-text-fill',
                 default_index=1,
@@ -54,13 +54,13 @@ class MultiApp:
             Task.app()
         if app == "Through Time":
             post.app()
-        if app == 'prediction':
+        if app == 'Prediction':
             prediction.app()
         if app == 'History':
             History.app()
         if app == "Trending":
             trending.app()
-        if app == 'about':
+        if app == 'About':
             about.app()
 
     run()
