@@ -4,6 +4,8 @@ from fpdf import FPDF
 import firebase_admin
 from firebase_admin import credentials, firestore
 import test
+import numpy as np
+
 db = firestore.client()
 
 def generate_pdf(details):
@@ -12,6 +14,7 @@ def generate_pdf(details):
     pdf.set_font("Arial", size=12)
     pdf.multi_cell(0, 10, txt=details)
     return pdf.output(dest='S').encode('latin1')
+
 def app():
     # Loading the saved model
     diabetes_model = pickle.load(open('Model/dia_model.pkl', 'rb'))
@@ -87,29 +90,64 @@ def app():
         if st.button('Diabetes Test Result'):
             Diabetes_prediction = diabetes_model.predict(
                 [[Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
+
             if Diabetes_prediction[0] == 1:
-                # ... (Your existing code)
+                Diabetes_diagnosis = 'The Person has Diabetes'
+                st.warning(Diabetes_diagnosis)  # Display a red warning alert
                 if st.button('Print Prediction Result as PDF'):
                     pdf_data = generate_pdf(Diabetes_details)  # Generate the PDF content
                     st.download_button('Download PDF', pdf_data, key='download_pdf')
+
+                # Convert the NumPy array to a Python list
+                Diabetes_prediction_list = Diabetes_prediction.tolist()
+
+                # Store input data and prediction details in Firestore
+                input_data = {
+                    'Pregnancies': Pregnancies,
+                    'Glucose': Glucose,
+                    'BloodPressure': BloodPressure,
+                    'SkinThickness': SkinThickness,
+                    'Insulin': Insulin,
+                    'BMI': BMI,
+                    'DiabetesPedigreeFunction': DiabetesPedigreeFunction,
+                    'Age': Age,
+                }
 
                 # Store prediction details in Firestore
                 prediction_data = {
                     'result': 'The Person has Diabetes',
-                    'details': Diabetes_details
+                    'details': Diabetes_prediction_list,
+                    'input_data': input_data
                 }
                 db.collection('predictions').add(prediction_data)
 
             elif Diabetes_prediction[0] == 0:
-                # ... (Your existing code)
+                Diabetes_diagnosis = 'The Person does not have Diabetes'
+                st.success(Diabetes_diagnosis)  # Display a green success alert
                 if st.button('Print Prediction Result as PDF'):
                     pdf_data = generate_pdf(Diabetes_details)  # Generate the PDF content
                     st.download_button('Download PDF', pdf_data, key='download_pdf')
 
+                # Convert the NumPy array to a Python list
+                Diabetes_prediction_list = Diabetes_prediction.tolist()
+                input_data = {
+                    'Pregnancies': Pregnancies,
+                    'Glucose': Glucose,
+                    'BloodPressure': BloodPressure,
+                    'SkinThickness': SkinThickness,
+                    'Insulin': Insulin,
+                    'BMI': BMI,
+                    'DiabetesPedigreeFunction': DiabetesPedigreeFunction,
+                    'Age': Age,
+                }
+
                 # Store prediction details in Firestore
                 prediction_data = {
                     'result': 'The Person does not have Diabetes',
-                    'details': Diabetes_details
+                    'details': Diabetes_prediction_list,
+                    'input_data': input_data
                 }
                 db.collection('predictions').add(prediction_data)
+
+
 

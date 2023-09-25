@@ -4,8 +4,10 @@ from streamlit_option_menu import option_menu
 
 import home ,about ,trending,test
 import you
-import todo
+import post
 import prediction
+import History
+import Task
 
 st.set_page_config(
     page_title="DiaPredict",
@@ -29,7 +31,7 @@ class MultiApp:
         with st.sidebar:
             app = option_menu(
                 menu_title='DiaPredict',
-                options=['Home', 'Account', 'Trending', 'Your Posts', 'about', 'todo','prediction'],
+                options=['Home', 'Account', 'Trending', 'Your Posts', 'about', 'Through Time','prediction','History','Task'],
                 icons=['house-fill', 'person-circle', 'trophy-fill', 'chat-fill', 'info-circle-fill'],
                 menu_icon='chat-text-fill',
                 default_index=1,
@@ -46,14 +48,19 @@ class MultiApp:
             home.app()
         if app == "Account":
             test.app()
-        if app == "Trending":
-            trending.app()
         if app == 'Your Posts':
             you.app()
-        if app == 'about':
-            about.app()
-        if app == "todo":
-            todo.app()
+        if app =='Task':
+            Task.app()
+        if app == "Through Time":
+            post.app()
         if app == 'prediction':
             prediction.app()
+        if app == 'History':
+            History.app()
+        if app == "Trending":
+            trending.app()
+        if app == 'about':
+            about.app()
+
     run()
