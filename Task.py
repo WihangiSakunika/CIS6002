@@ -13,7 +13,6 @@ def app():
         user_id = st.session_state.username
         user = auth.get_user(user_id)
         st.write(f'Welcome, {user.email}!')
-
         # Create a form to add tasks
         task = st.text_input('Add a new task:')
         if st.button('Add Task') and task:
