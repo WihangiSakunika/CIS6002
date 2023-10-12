@@ -1,6 +1,6 @@
 import streamlit as st
 import pickle
-from fpdf import FPDF
+
 import firebase_admin
 from firebase_admin import credentials, firestore
 import test
