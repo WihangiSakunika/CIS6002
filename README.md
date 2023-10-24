@@ -83,3 +83,11 @@ The dataset used for training the machine learning model is the Pima Indian Diab
 - The Pima Indian Diabetes dataset was made available on Kaggle by the UCI Machine Learning Repository.
 
 ---
+## Project Demonstration
+
+Watch a demo of the project in action:
+
+[![Project Demo]([https://img.youtube.com/vi/your_video_id/0.jpg)](https://www.youtube.com/watch?v=your_video_id](https://github.com/WihangiSakunika/CIS6002/blob/master/video1870843285.mp4))
+
+This video provides an overview of the project's features and how to use them.
+
