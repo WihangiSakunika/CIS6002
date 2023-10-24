@@ -75,11 +75,7 @@ The dataset used for training the machine learning model is the Pima Indian Diab
 
 ## Contributors
 
-- [Your Name](https://github.com/yourusername) - Project Lead
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- [Wihangi]([https://github.com/yourusername](https://github.com/WihangiSakunika)) - Project Lead
 
 ## Acknowledgments
 
